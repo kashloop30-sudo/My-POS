@@ -23,7 +23,7 @@ const Workflow = () => {
 
   const fetchBranches = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/branches?businessId=${selectedBusiness.id}`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL + '/api' : 'http://localhost:5000/api'}/branches?businessId=${selectedBusiness.id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setBranches(res.data);
@@ -34,7 +34,7 @@ const Workflow = () => {
   const fetchTasks = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/tasks?businessId=${selectedBusiness.id}`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL + '/api' : 'http://localhost:5000/api'}/tasks?businessId=${selectedBusiness.id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTasks(res.data);
@@ -49,7 +49,7 @@ const Workflow = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/tasks`, formData, {
+      await axios.post(`${import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL + '/api' : 'http://localhost:5000/api'}/tasks`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       await fetchTasks();
@@ -66,7 +66,7 @@ const Workflow = () => {
   const updateTaskStatus = async (taskId, newStatus) => {
     setTasks(prev => prev.map(t => t.id === taskId ? { ...t, status: newStatus } : t));
     try {
-      await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/tasks/${taskId}`, { status: newStatus }, {
+      await axios.put(`${import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL + '/api' : 'http://localhost:5000/api'}/tasks/${taskId}`, { status: newStatus }, {
         headers: { Authorization: `Bearer ${token}` },
       });
     } catch {
@@ -78,7 +78,7 @@ const Workflow = () => {
   const deleteTask = async (taskId) => {
     if (!window.confirm('Delete this task?')) return;
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/tasks/${taskId}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL + '/api' : 'http://localhost:5000/api'}/tasks/${taskId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTasks(prev => prev.filter(t => t.id !== taskId));

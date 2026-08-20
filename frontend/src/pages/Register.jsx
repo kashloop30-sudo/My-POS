@@ -18,7 +18,7 @@ const Register = () => {
     setLoading(true);
     setError('');
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/auth/register`, { name, email, password });
+      await axios.post(`${import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL + '/api' : 'http://localhost:5000/api'}/auth/register`, { name, email, password });
       setSuccess(true);
       setTimeout(() => navigate('/login'), 1500);
     } catch (err) {
