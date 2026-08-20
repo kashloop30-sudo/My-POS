@@ -184,9 +184,19 @@ const Finance = () => {
                 ))}
                 {finances.length === 0 && (
                   <tr>
-                    <td colSpan={6} className="px-6 py-16 text-center">
-                      <LineChart className="w-10 h-10 text-gray-300 mx-auto mb-2" />
-                      <p className="text-gray-500 text-sm">No financial records yet.</p>
+                    <td colSpan={6} className="px-6 py-20">
+                      <div className="flex flex-col items-center justify-center text-center">
+                        <div className="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mb-4 ring-8 ring-blue-50/50">
+                          <LineChart className="w-8 h-8 text-blue-500" />
+                        </div>
+                        <h3 className="text-lg font-bold text-gray-900 mb-1">No financial records yet</h3>
+                        <p className="text-gray-500 text-sm max-w-sm mb-5">
+                          Track your business income and expenses here to see powerful analytics on your dashboard.
+                        </p>
+                        <button onClick={() => setIsModalOpen(true)} className="btn-primary shadow-brand-sm">
+                          <Plus className="w-4 h-4" /> Add First Record
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 )}

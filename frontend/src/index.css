@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -16,7 +16,7 @@
 
   body {
     margin: 0;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: #f0f4fa;
@@ -62,9 +62,13 @@
            transition-all duration-300 border border-red-100 text-sm hover:shadow-md hover:shadow-red-500/10;
   }
 
-  .table-container { @apply bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden; }
-  .table-header { @apply bg-gray-50 border-b border-gray-100 text-gray-500 text-xs uppercase font-semibold tracking-wider; }
-  .table-row { @apply hover:bg-blue-50/40 transition-colors duration-100; }
+  .table-container { @apply bg-white rounded-2xl border border-gray-100 shadow-sm overflow-x-auto; }
+  .table-header { 
+    @apply sticky top-0 z-10 text-gray-500 text-xs uppercase font-extrabold tracking-wider bg-white/80 backdrop-blur-md border-b border-gray-100;
+  }
+  .table-row { 
+    @apply hover:bg-blue-50/50 transition-all duration-200 border-l-4 border-transparent hover:border-blue-500 hover:shadow-[0_2px_10px_rgba(0,0,0,0.02)];
+  }
 
   .badge-green  { @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-100; }
   .badge-red    { @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-red-50 text-red-700 border border-red-100; }
@@ -74,13 +78,13 @@
 
   .modal-overlay {
     @apply fixed inset-0 flex items-center justify-center z-50 p-4;
-    background: rgba(0,0,0,0.45);
-    backdrop-filter: blur(4px);
-    animation: fadeIn 0.15s ease;
+    background: rgba(15,23,42,0.6);
+    backdrop-filter: blur(8px);
+    animation: fadeIn 0.2s ease;
   }
   .modal-card {
-    @apply bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6;
-    animation: scaleIn 0.22s cubic-bezier(.34,1.56,.64,1);
+    @apply bg-white rounded-3xl shadow-[0_24px_60px_-12px_rgba(0,0,0,0.3)] w-full max-w-lg p-6 border border-white/20;
+    animation: springIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
   }
 
   .toast-wrap {
@@ -138,6 +142,10 @@
 @keyframes scaleIn {
   from { opacity: 0; transform: scale(0.92); }
   to   { opacity: 1; transform: scale(1); }
+}
+@keyframes springIn {
+  0%   { opacity: 0; transform: scale(0.8) translateY(20px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 @keyframes slideInRight {
   from { opacity: 0; transform: translateX(60px); }

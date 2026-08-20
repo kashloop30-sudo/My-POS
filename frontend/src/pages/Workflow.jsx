@@ -217,8 +217,11 @@ const Workflow = () => {
                     ))}
 
                     {colTasks.length === 0 && (
-                      <div className="h-24 border-2 border-dashed border-gray-200 rounded-xl flex items-center justify-center text-sm text-gray-300 font-medium select-none">
-                        No tasks
+                      <div className="h-32 border-2 border-dashed border-gray-200/60 rounded-xl flex flex-col items-center justify-center text-center p-4 bg-gray-50/50">
+                        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center mb-2 shadow-sm">
+                          <CheckSquare className="w-5 h-5 text-gray-400" />
+                        </div>
+                        <p className="text-xs text-gray-400 font-medium select-none">No tasks in {col.title}</p>
                       </div>
                     )}
                   </div>
