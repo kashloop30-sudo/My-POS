@@ -18,7 +18,7 @@ const Businesses = () => {
     e.stopPropagation();
     if (!window.confirm('Delete this business? This action cannot be undone.')) return;
     try {
-      await axios.delete(`http://localhost:5000/api/businesses/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/businesses/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       await fetchBusinesses();
@@ -33,7 +33,7 @@ const Businesses = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      await axios.post('http://localhost:5000/api/businesses', formData, {
+      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/businesses`, formData, {
         headers: { Authorization: `Bearer ${token}` }
       });
       await fetchBusinesses();

@@ -31,7 +31,7 @@ const Dashboard = () => {
     try {
       setLoading(true);
       const res = await axios.get(
-        `http://localhost:5000/api/finances/summary?businessId=${selectedBusiness.id}`,
+        `${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/finances/summary?businessId=${selectedBusiness.id}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setSummary(res.data);
@@ -45,7 +45,7 @@ const Dashboard = () => {
   const fetchChartData = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/finances?businessId=${selectedBusiness.id}`,
+        `${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/finances?businessId=${selectedBusiness.id}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const aggregated = {};

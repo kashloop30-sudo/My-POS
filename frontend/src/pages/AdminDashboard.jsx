@@ -20,7 +20,7 @@ const AdminDashboard = () => {
   const fetchAdminData = async () => {
     try {
       setLoading(true);
-      const bizRes = await axios.get('http://localhost:5000/api/businesses', {
+      const bizRes = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/businesses`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const bizList = bizRes.data;
@@ -31,10 +31,10 @@ const AdminDashboard = () => {
       await Promise.all(bizList.map(async (biz) => {
         try {
           const [summaryRes, branchRes] = await Promise.all([
-            axios.get(`http://localhost:5000/api/finances/summary?businessId=${biz.id}`, {
+            axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/finances/summary?businessId=${biz.id}`, {
               headers: { Authorization: `Bearer ${token}` },
             }),
-            axios.get(`http://localhost:5000/api/branches?businessId=${biz.id}`, {
+            axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/branches?businessId=${biz.id}`, {
               headers: { Authorization: `Bearer ${token}` },
             }),
           ]);

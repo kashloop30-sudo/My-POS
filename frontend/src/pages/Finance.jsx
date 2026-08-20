@@ -24,7 +24,7 @@ const Finance = () => {
 
   const fetchBranches = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/branches?businessId=${selectedBusiness.id}`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/branches?businessId=${selectedBusiness.id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setBranches(res.data);
@@ -35,7 +35,7 @@ const Finance = () => {
   const fetchFinances = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:5000/api/finances?businessId=${selectedBusiness.id}`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/finances?businessId=${selectedBusiness.id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setFinances(res.data);
@@ -49,7 +49,7 @@ const Finance = () => {
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this financial record?')) return;
     try {
-      await axios.delete(`http://localhost:5000/api/finances/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/finances/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setFinances(prev => prev.filter(f => f.id !== id));
@@ -63,7 +63,7 @@ const Finance = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      await axios.post('http://localhost:5000/api/finances', formData, {
+      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/finances`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       await fetchFinances();

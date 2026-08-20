@@ -13,7 +13,7 @@ import {
    Worker Dashboard — focused view for STAFF / BRANCH_MANAGER
 ═══════════════════════════════════════════════════════════ */
 
-const API = 'http://localhost:5000/api';
+const API = import.meta.env.VITE_API_URL || `${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}`;
 
 // ── Tiny stat badge ──────────────────────────────────────────
 const StatBadge = ({ icon: Icon, label, value, color }) => (

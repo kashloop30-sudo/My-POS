@@ -21,7 +21,7 @@ const Branches = () => {
     if (!token || !selectedBusiness) return;
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:5000/api/branches?businessId=${selectedBusiness.id}`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/branches?businessId=${selectedBusiness.id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setBranches(res.data);
@@ -40,7 +40,7 @@ const Branches = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      await axios.post('http://localhost:5000/api/branches', { ...formData, businessId: selectedBusiness.id }, {
+      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/branches`, { ...formData, businessId: selectedBusiness.id }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       await fetchBranches();
@@ -57,7 +57,7 @@ const Branches = () => {
   const handleDeleteBranch = async (id) => {
     if (!window.confirm('Delete this branch? This cannot be undone.')) return;
     try {
-      await axios.delete(`http://localhost:5000/api/branches/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/branches/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setBranches(prev => prev.filter(b => b.id !== id));

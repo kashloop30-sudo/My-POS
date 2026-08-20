@@ -39,7 +39,7 @@ const Clients = () => {
 
   const fetchBranches = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/branches?businessId=${selectedBusiness.id}`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/branches?businessId=${selectedBusiness.id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setBranches(res.data);
@@ -49,7 +49,7 @@ const Clients = () => {
 
   const fetchServices = async (branchId) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/services?branchId=${branchId}`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/services?branchId=${branchId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setServices(res.data);
@@ -59,7 +59,7 @@ const Clients = () => {
   const fetchClients = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:5000/api/clients?businessId=${selectedBusiness.id}`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/clients?businessId=${selectedBusiness.id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setClients(res.data);
@@ -74,7 +74,7 @@ const Clients = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      await axios.post('http://localhost:5000/api/clients', formData, {
+      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/clients`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       await fetchClients();
