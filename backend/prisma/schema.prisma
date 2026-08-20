@@ -1,0 +1,112 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("STAFF") // SUPER_ADMIN, BUSINESS_ADMIN, BRANCH_MANAGER, STAFF
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  businesses Business[] // Businesses created by this user
+  branches   Branch[]   @relation("BranchManager") // Branches managed by this user
+}
+
+model Business {
+  id        String   @id @default(uuid())
+  name      String
+  logo      String?
+  type      String
+  currency  String   @default("USD")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  ownerId   String
+  owner     User     @relation(fields: [ownerId], references: [id])
+  
+  branches  Branch[]
+}
+
+model Branch {
+  id        String   @id @default(uuid())
+  name      String
+  address   String
+  contact   String
+  status    String   @default("ACTIVE") // ACTIVE, INACTIVE
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  
+  managerId  String?
+  manager    User?    @relation("BranchManager", fields: [managerId], references: [id])
+  
+  clients    Client[]
+  tasks      Task[]
+  finances   Finance[]
+  services   Service[]
+}
+
+model Client {
+  id        String   @id @default(uuid())
+  name      String
+  contact   String
+  history   String? // Store as JSON or string
+  description String?
+  totalSpend Float   @default(0.0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  branchId  String
+  branch    Branch   @relation(fields: [branchId], references: [id], onDelete: Cascade)
+}
+
+model Service {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  price       Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  branchId    String
+  branch      Branch   @relation(fields: [branchId], references: [id], onDelete: Cascade)
+}
+
+model Task {
+  id        String   @id @default(uuid())
+  title     String
+  status    String   @default("PENDING") // PENDING, IN_PROGRESS, COMPLETED
+  priority  String   @default("MEDIUM") // LOW, MEDIUM, HIGH, URGENT
+  dueDate   DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  branchId  String
+  branch    Branch   @relation(fields: [branchId], references: [id], onDelete: Cascade)
+}
+
+model Finance {
+  id        String   @id @default(uuid())
+  type      String   // INCOME, EXPENSE
+  amount    Float
+  category  String
+  date      DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  branchId  String
+  branch    Branch   @relation(fields: [branchId], references: [id], onDelete: Cascade)
+}
