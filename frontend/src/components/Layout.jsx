@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
 import { BusinessContext } from '../context/BusinessContext';
+import { getTerm } from '../config/businessTypes';
 
 const WORKER_ROLES = ['STAFF', 'BRANCH_MANAGER'];
 
@@ -30,8 +31,8 @@ const Layout = () => {
     { name: 'Dashboard',     path: '/',           icon: LayoutDashboard, end: true },
     ...(isWorker ? [{ name: 'Worker Portal', path: '/worker', icon: Star }] : []),
     { name: 'Businesses',    path: '/businesses', icon: Building2 },
-    { name: 'Branches',      path: '/branches',   icon: MapPin },
-    { name: 'Clients',       path: '/clients',    icon: Users },
+    { name: getTerm(selectedBusiness?.type, 'branches'),      path: '/branches',   icon: MapPin },
+    { name: getTerm(selectedBusiness?.type, 'clients'),       path: '/clients',    icon: Users },
     { name: 'Workflow',      path: '/workflow',   icon: CheckSquare },
     { name: 'Finance',       path: '/finance',    icon: LineChart },
     { name: 'Reports',       path: '/reports',    icon: FileText },

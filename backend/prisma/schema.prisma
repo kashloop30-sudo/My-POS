@@ -29,6 +29,7 @@ model Business {
   logo      String?
   type      String
   currency  String   @default("USD")
+  settings  String?  // Store JSON for enabled features/settings
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   
@@ -65,6 +66,7 @@ model Client {
   contact   String
   history   String? // Store as JSON or string
   description String?
+  metadata  String? // Store industry-specific JSON metadata
   totalSpend Float   @default(0.0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -77,6 +79,7 @@ model Service {
   id          String   @id @default(uuid())
   name        String
   description String?
+  metadata    String?  // Store industry-specific JSON metadata
   price       Float
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -91,6 +94,7 @@ model Task {
   status    String   @default("PENDING") // PENDING, IN_PROGRESS, COMPLETED
   priority  String   @default("MEDIUM") // LOW, MEDIUM, HIGH, URGENT
   dueDate   DateTime?
+  metadata  String?  // Store industry-specific JSON metadata
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   
@@ -104,6 +108,7 @@ model Finance {
   amount    Float
   category  String
   date      DateTime @default(now())
+  metadata  String?  // Store industry-specific JSON metadata
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   

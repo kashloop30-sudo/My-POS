@@ -161,11 +161,17 @@ const Businesses = () => {
               </div>
               <div>
                 <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wide">Industry / Type</label>
-                <input 
-                  type="text" required placeholder="e.g. Retail, Tech, Hospitality, Salon"
+                <select 
                   className="input-base"
                   value={formData.type} onChange={e => setFormData({...formData, type: e.target.value})}
-                />
+                  required
+                >
+                  <option value="" disabled>Select Business Type</option>
+                  <option value="HOSPITAL">Hospital / Clinic</option>
+                  <option value="RETAIL">Retail (Clothing / General)</option>
+                  <option value="BAR">Bar / Restaurant</option>
+                  <option value="DEFAULT">General Business</option>
+                </select>
               </div>
               <div>
                 <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wide">Primary Currency</label>

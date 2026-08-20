@@ -6,6 +6,7 @@ import { useToast } from '../components/Toast';
 import { SkeletonTable } from '../components/Skeleton';
 import { Plus, Users, Search, Download, ChevronDown, ChevronUp, History, X } from 'lucide-react';
 import * as XLSX from 'xlsx';
+import { getTerm } from '../config/businessTypes';
 
 const Clients = () => {
   const { token } = useContext(AuthContext);
@@ -108,7 +109,7 @@ const Clients = () => {
       <div className="flex flex-col items-center justify-center h-full text-center p-8 bg-white rounded-2xl border border-dashed border-gray-200">
         <Users className="w-16 h-16 text-gray-300 mb-4" />
         <h2 className="text-xl font-bold text-gray-700">No Business Selected</h2>
-        <p className="text-gray-500 mt-2">Select a business from the top dropdown to view clients.</p>
+        <p className="text-gray-500 mt-2">Select a business from the top dropdown to view data.</p>
       </div>
     );
   }
@@ -130,7 +131,7 @@ const Clients = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-gray-900">Clients</h1>
+          <h1 className="text-2xl font-extrabold text-gray-900">{getTerm(selectedBusiness?.type, 'clients')}</h1>
           <p className="text-gray-500 text-sm mt-1">
             Manage customers for{' '}
             <span className="font-semibold text-blue-600">{selectedBusiness.name}</span>
@@ -146,7 +147,7 @@ const Clients = () => {
           </button>
           <button onClick={() => setIsModalOpen(true)} className="btn-primary">
             <Plus className="w-4 h-4" />
-            Onboard Client
+            Onboard {getTerm(selectedBusiness?.type, 'client')}
           </button>
         </div>
       </div>
@@ -182,7 +183,7 @@ const Clients = () => {
             <table className="w-full text-left text-sm">
               <thead className="table-header">
                 <tr>
-                  <th className="px-6 py-3.5">Client</th>
+                  <th className="px-6 py-3.5">{getTerm(selectedBusiness?.type, 'client')}</th>
                   <th className="px-6 py-3.5">Contact</th>
                   <th className="px-6 py-3.5">Branch</th>
                   <th className="px-6 py-3.5">Total Spend</th>
@@ -257,7 +258,7 @@ const Clients = () => {
                   <tr>
                     <td colSpan={5} className="px-6 py-16 text-center">
                       <Users className="w-10 h-10 text-gray-300 mx-auto mb-2" />
-                      <p className="text-gray-500 text-sm">No clients found matching your criteria.</p>
+                      <p className="text-gray-500 text-sm">No {getTerm(selectedBusiness?.type, 'clients').toLowerCase()} found matching your criteria.</p>
                     </td>
                   </tr>
                 )}
@@ -272,14 +273,14 @@ const Clients = () => {
         <div className="modal-overlay" onClick={e => e.target === e.currentTarget && setIsModalOpen(false)}>
           <div className="modal-card">
             <div className="flex items-center justify-between mb-5">
-              <h2 className="text-xl font-bold text-gray-900">Onboard Client</h2>
+              <h2 className="text-xl font-bold text-gray-900">Onboard {getTerm(selectedBusiness?.type, 'client')}</h2>
               <button onClick={() => setIsModalOpen(false)} className="p-2 hover:bg-gray-100 rounded-xl transition-colors">
                 <X className="w-5 h-5 text-gray-500" />
               </button>
             </div>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wide">Client Name</label>
+                <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wide">{getTerm(selectedBusiness?.type, 'client')} Name</label>
                 <input required type="text" placeholder="John Doe" className="input-base"
                   value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} />
               </div>
