@@ -46,20 +46,20 @@
   }
 
   .btn-primary {
-    @apply flex items-center gap-2 justify-center bg-blue-600 hover:bg-blue-700
+    @apply flex items-center gap-2 justify-center bg-blue-600 hover:bg-blue-500
            active:scale-95 text-white font-semibold px-5 py-2.5 rounded-xl
-           transition-all duration-150 shadow-md disabled:opacity-50
-           disabled:cursor-not-allowed text-sm;
+           transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30
+           disabled:opacity-50 disabled:cursor-not-allowed text-sm;
   }
   .btn-secondary {
     @apply flex items-center gap-2 justify-center bg-white hover:bg-gray-50
            active:scale-95 text-gray-700 font-medium px-5 py-2.5 rounded-xl
-           transition-all duration-150 border border-gray-200 shadow-sm text-sm;
+           transition-all duration-300 border border-gray-200 shadow-sm hover:shadow-md text-sm;
   }
   .btn-danger {
     @apply flex items-center gap-2 justify-center bg-red-50 hover:bg-red-100
            active:scale-95 text-red-600 font-medium px-4 py-2 rounded-xl
-           transition-all duration-150 border border-red-100 text-sm;
+           transition-all duration-300 border border-red-100 text-sm hover:shadow-md hover:shadow-red-500/10;
   }
 
   .table-container { @apply bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden; }
@@ -97,9 +97,9 @@
 
   .skeleton {
     @apply rounded-lg;
-    background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+    background: linear-gradient(90deg, #f0f4fa 25%, #e0e7ff 50%, #f0f4fa 75%);
     background-size: 200% 100%;
-    animation: shimmer 1.4s infinite;
+    animation: shimmer 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }
 
   .section-header {
@@ -112,13 +112,14 @@
     @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600;
   }
   .bg-glass {
-    backdrop-filter: blur(14px);
-    background: rgba(255, 255, 255, 0.88);
-    border: 1px solid rgba(255,255,255,0.6);
+    backdrop-filter: blur(20px) saturate(180%);
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.9);
   }
   .bg-glass-dark {
-    backdrop-filter: blur(14px);
-    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(20px) saturate(180%);
+    background: rgba(15, 23, 42, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
   .shadow-brand    { box-shadow: 0 4px 24px rgba(59,130,246,.25); }
   .shadow-brand-sm { box-shadow: 0 2px 12px rgba(59,130,246,.18); }

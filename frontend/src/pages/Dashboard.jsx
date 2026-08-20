@@ -134,18 +134,28 @@ const Dashboard = () => {
             <div className="h-72 w-full">
               {chartData.length > 0 ? (
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={chartData} margin={{ top: 5, right: 5, left: -15, bottom: 0 }}>
+                  <AreaChart data={chartData} margin={{ top: 5, right: 5, left: -15, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id="colorIncome" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#10B981" stopOpacity={0.4}/>
+                        <stop offset="95%" stopColor="#10B981" stopOpacity={0}/>
+                      </linearGradient>
+                      <linearGradient id="colorExpense" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#F87171" stopOpacity={0.4}/>
+                        <stop offset="95%" stopColor="#F87171" stopOpacity={0}/>
+                      </linearGradient>
+                    </defs>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F3F4F6" />
                     <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 11 }} />
                     <YAxis axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 11 }} />
                     <Tooltip
-                      cursor={{ fill: '#F9FAFB', radius: 6 }}
-                      contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 40px rgba(0,0,0,.12)', fontSize: 12 }}
+                      cursor={{ stroke: '#F3F4F6', strokeWidth: 2, fill: 'transparent' }}
+                      contentStyle={{ borderRadius: '16px', border: '1px solid rgba(255,255,255,0.8)', background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(20px)', boxShadow: '0 10px 40px rgba(0,0,0,.12)', fontSize: 12 }}
                     />
-                    <Legend wrapperStyle={{ fontSize: 12 }} />
-                    <Bar dataKey="Income"  fill="#10B981" radius={[6,6,0,0]} maxBarSize={36} />
-                    <Bar dataKey="Expense" fill="#F87171" radius={[6,6,0,0]} maxBarSize={36} />
-                  </BarChart>
+                    <Legend wrapperStyle={{ fontSize: 12, paddingTop: '10px' }} />
+                    <Area type="monotone" dataKey="Income" stroke="#10B981" strokeWidth={3} fillOpacity={1} fill="url(#colorIncome)" />
+                    <Area type="monotone" dataKey="Expense" stroke="#F87171" strokeWidth={3} fillOpacity={1} fill="url(#colorExpense)" />
+                  </AreaChart>
                 </ResponsiveContainer>
               ) : (
                 <div className="h-full flex items-center justify-center text-gray-400 text-sm">

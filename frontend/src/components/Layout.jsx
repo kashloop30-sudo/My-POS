@@ -154,28 +154,32 @@ const Layout = () => {
 
       {/* Desktop Sidebar */}
       <aside
-        className={`hidden lg:flex flex-col transition-all duration-300 ${collapsed ? 'w-[72px]' : 'w-64'} relative shrink-0`}
-        style={{ background: 'linear-gradient(180deg, #0f172a 0%, #1e293b 100%)' }}
+        className={`hidden lg:flex flex-col transition-all duration-300 ${collapsed ? 'w-[72px]' : 'w-64'} relative shrink-0 z-30`}
       >
-        <SidebarContent />
+        {/* Glassmorphic Background Layer */}
+        <div className="absolute inset-0 bg-glass-dark border-r border-white/10" />
+        <div className="relative z-10 flex flex-col h-full text-white">
+          <SidebarContent />
+        </div>
         {/* Collapse toggle */}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="absolute -right-3 top-20 w-6 h-6 bg-slate-800 border border-slate-600 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-colors shadow-md z-10"
+          className="absolute -right-3 top-20 w-6 h-6 bg-slate-800 border border-slate-600 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-colors shadow-md z-20"
         >
           {collapsed ? <ChevronRight className="w-3 h-3" /> : <ChevronLeft className="w-3 h-3" />}
         </button>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col overflow-hidden">
+      <main className="flex-1 flex flex-col overflow-hidden relative">
 
-        {/* Header */}
-        <header className="bg-white border-b border-gray-200/80 px-6 py-3 flex items-center justify-between shadow-sm z-10 shrink-0">
-          <div className="flex items-center gap-4">
-            <button onClick={() => setMobileOpen(true)} className="lg:hidden p-2 rounded-xl hover:bg-gray-100 text-gray-600 transition-colors">
-              <Menu className="w-5 h-5" />
-            </button>
+        {/* Floating Header */}
+        <div className="px-6 pt-4 pb-2 shrink-0 z-10">
+          <header className="bg-glass rounded-2xl px-6 py-3 flex items-center justify-between shadow-sm border border-white">
+            <div className="flex items-center gap-4">
+              <button onClick={() => setMobileOpen(true)} className="lg:hidden p-2 rounded-xl hover:bg-gray-100/50 text-gray-600 transition-colors">
+                <Menu className="w-5 h-5" />
+              </button>
 
             <div className="flex items-center gap-3">
               <span className="text-xs font-semibold text-gray-400 hidden sm:block uppercase tracking-wide">Active Business</span>
@@ -256,10 +260,11 @@ const Layout = () => {
               {user?.name?.charAt(0)?.toUpperCase()}
             </div>
           </div>
-        </header>
+          </header>
+        </div>
 
         {/* Page Content */}
-        <div className="flex-1 overflow-auto p-6 lg:p-8">
+        <div className="flex-1 overflow-auto px-6 pb-6 lg:px-8 lg:pb-8 pt-2">
           <Outlet />
         </div>
       </main>
