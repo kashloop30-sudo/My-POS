@@ -55,29 +55,36 @@ const Register = () => {
             Join hundreds of businesses using BMS Pro to streamline operations and track growth.
           </p>
 
-          <div className="mt-10 space-y-4">
+          <div className="mt-10 space-y-3">
             {[
-              'Create unlimited businesses & branches',
-              'Track clients and log visits instantly',
-              'Monitor income, expenses & net profit',
-              'Kanban workflow for your whole team',
+              { text: 'Create unlimited businesses & branches', icon: '🏢' },
+              { text: 'Track clients and log visits instantly', icon: '👥' },
+              { text: 'Monitor income, expenses & net profit', icon: '📊' },
+              { text: 'Kanban workflow for your whole team', icon: '✅' },
             ].map((feat, i) => (
-              <div key={i} className="flex items-center gap-3 text-blue-100 text-sm">
-                <CheckCircle2 className="w-5 h-5 text-blue-400 shrink-0" />
-                {feat}
+              <div
+                key={i}
+                className="flex items-center gap-3 bg-white/[0.06] border border-white/[0.10] rounded-xl px-4 py-3 text-blue-100 text-sm"
+                style={{ animation: `fadeInUp 0.5s cubic-bezier(0.16,1,0.3,1) ${0.3 + i * 0.08}s both` }}
+              >
+                <span className="text-xl shrink-0">{feat.icon}</span>
+                <span className="font-medium">{feat.text}</span>
               </div>
             ))}
           </div>
         </div>
 
-        <p className="text-blue-400 text-sm relative">
-          © 2025 BMS Pro. All rights reserved.
-        </p>
+        <div className="flex items-center gap-4">
+          <div className="text-sm">
+            <p className="text-blue-400/80 font-medium">© 2025 BMS Pro</p>
+            <p className="text-blue-500/50 text-xs">Enterprise Business Management</p>
+          </div>
+        </div>
       </div>
 
       {/* Right form */}
       <div className="flex-1 flex items-center justify-center p-8 bg-gray-50">
-        <div className="w-full max-w-md space-y-7" style={{ animation: 'fadeInUp 0.4s ease both' }}>
+        <div className="w-full max-w-md space-y-7" style={{ animation: 'fadeInUp 0.5s cubic-bezier(0.16,1,0.3,1) both' }}>
           <div className="lg:hidden flex items-center gap-3 mb-2">
             <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold">B</div>
             <span className="font-bold text-gray-900 text-lg">BMS Pro</span>

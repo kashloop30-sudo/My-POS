@@ -44,15 +44,19 @@ const Settings = () => {
 
         <form onSubmit={handleSave} className="p-6 space-y-6">
           <div className="flex items-center gap-5 pb-6 border-b border-gray-100">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-2xl font-extrabold shadow-lg shadow-blue-200">
+            <div
+              className="w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl font-extrabold shrink-0"
+              style={{ background: 'linear-gradient(135deg,#3b82f6,#6366f1)', boxShadow: '0 8px 28px rgba(99,102,241,0.40)' }}
+            >
               {user?.name?.charAt(0)?.toUpperCase()}
             </div>
             <div>
               <p className="font-bold text-gray-900 text-lg">{user?.name}</p>
               <p className="text-sm text-gray-400">{user?.email}</p>
-              <div className="mt-1.5 flex items-center gap-2">
-                <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-100">
-                  <Check className="w-3 h-3" /> Active Status
+              <div className="mt-2 flex items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-bold px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-100">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block animate-pulse" />
+                  Active
                 </span>
               </div>
             </div>
@@ -93,9 +97,10 @@ const Settings = () => {
 
       {/* Preferences Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex items-start gap-4">
-          <div className="w-11 h-11 rounded-2xl bg-violet-50 flex items-center justify-center shrink-0 text-violet-600">
-            <Bell className="w-5 h-5" />
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex items-start gap-4 hover:shadow-md transition-shadow">
+          <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0"
+            style={{ background: 'linear-gradient(135deg,#a78bfa,#8b5cf6)', boxShadow: '0 6px 18px rgba(139,92,246,0.30)' }}>
+            <Bell className="w-5 h-5 text-white" />
           </div>
           <div className="flex-1">
             <h3 className="font-bold text-gray-900 mb-1">System Notifications</h3>
@@ -111,9 +116,10 @@ const Settings = () => {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex items-start gap-4">
-          <div className="w-11 h-11 rounded-2xl bg-emerald-50 flex items-center justify-center shrink-0 text-emerald-600">
-            <Shield className="w-5 h-5" />
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex items-start gap-4 hover:shadow-md transition-shadow">
+          <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0"
+            style={{ background: 'linear-gradient(135deg,#34d399,#10b981)', boxShadow: '0 6px 18px rgba(16,185,129,0.30)' }}>
+            <Shield className="w-5 h-5 text-white" />
           </div>
           <div className="flex-1">
             <h3 className="font-bold text-gray-900 mb-1">Password & Security</h3>
@@ -128,9 +134,10 @@ const Settings = () => {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex items-start gap-4">
-          <div className="w-11 h-11 rounded-2xl bg-amber-50 flex items-center justify-center shrink-0 text-amber-600">
-            <Palette className="w-5 h-5" />
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex items-start gap-4 hover:shadow-md transition-shadow">
+          <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0"
+            style={{ background: 'linear-gradient(135deg,#fbbf24,#f59e0b)', boxShadow: '0 6px 18px rgba(245,158,11,0.30)' }}>
+            <Palette className="w-5 h-5 text-white" />
           </div>
           <div className="flex-1">
             <h3 className="font-bold text-gray-900 mb-1">Interface Theme</h3>
@@ -152,9 +159,10 @@ const Settings = () => {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex items-start gap-4">
-          <div className="w-11 h-11 rounded-2xl bg-sky-50 flex items-center justify-center shrink-0 text-sky-600">
-            <Globe className="w-5 h-5" />
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex items-start gap-4 hover:shadow-md transition-shadow">
+          <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0"
+            style={{ background: 'linear-gradient(135deg,#38bdf8,#0ea5e9)', boxShadow: '0 6px 18px rgba(14,165,233,0.28)' }}>
+            <Globe className="w-5 h-5 text-white" />
           </div>
           <div className="flex-1">
             <h3 className="font-bold text-gray-900 mb-1">Language & Region</h3>

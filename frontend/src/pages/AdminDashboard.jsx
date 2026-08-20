@@ -65,12 +65,12 @@ const AdminDashboard = () => {
   }
 
   const statCards = stats ? [
-    { label: 'Businesses',    value: stats.totalBusinesses,                                        icon: Building2,   bg: 'from-blue-500 to-blue-600',    light: 'bg-blue-50 text-blue-600' },
-    { label: 'Branches',      value: stats.totalBranches,                                          icon: MapPin,       bg: 'from-violet-500 to-violet-600',  light: 'bg-violet-50 text-violet-600' },
-    { label: 'Total Clients', value: stats.totalClients,                                           icon: Users,        bg: 'from-emerald-500 to-emerald-600',light: 'bg-emerald-50 text-emerald-600' },
-    { label: 'Active Tasks',  value: stats.totalTasks,                                             icon: CheckSquare,  bg: 'from-orange-500 to-orange-600',  light: 'bg-orange-50 text-orange-600' },
-    { label: 'Revenue',       value: `$${stats.totalIncome.toLocaleString()}`,                     icon: TrendingUp,   bg: 'from-green-500 to-green-600',    light: 'bg-green-50 text-green-600' },
-    { label: 'Expenses',      value: `$${stats.totalExpense.toLocaleString()}`,                    icon: TrendingDown, bg: 'from-red-500 to-red-600',        light: 'bg-red-50 text-red-600' },
+    { label: 'Businesses',    value: stats.totalBusinesses, icon: Building2,   gradient: 'from-blue-400 to-blue-600',     shadow: 'rgba(59,130,246,0.32)' },
+    { label: 'Branches',      value: stats.totalBranches,   icon: MapPin,       gradient: 'from-violet-400 to-violet-600',  shadow: 'rgba(139,92,246,0.32)' },
+    { label: 'Total Clients', value: stats.totalClients,    icon: Users,        gradient: 'from-emerald-400 to-emerald-600',shadow: 'rgba(16,185,129,0.32)' },
+    { label: 'Active Tasks',  value: stats.totalTasks,      icon: CheckSquare,  gradient: 'from-orange-400 to-orange-600',  shadow: 'rgba(249,115,22,0.32)' },
+    { label: 'Revenue',       value: `$${stats.totalIncome.toLocaleString()}`,  icon: TrendingUp,   gradient: 'from-teal-400 to-green-500',     shadow: 'rgba(20,184,166,0.32)' },
+    { label: 'Expenses',      value: `$${stats.totalExpense.toLocaleString()}`, icon: TrendingDown, gradient: 'from-rose-400 to-red-500',        shadow: 'rgba(244,63,94,0.32)' },
   ] : [];
 
   return (
@@ -99,17 +99,20 @@ const AdminDashboard = () => {
 
       {/* Net Profit Banner */}
       {!loading && stats && (
-        <div className={`rounded-2xl p-6 flex items-center justify-between shadow-xl
-          bg-gradient-to-r ${stats.netProfit >= 0 ? 'from-emerald-600 to-green-500' : 'from-red-600 to-rose-500'} text-white`}
-          style={{ animation: 'fadeInUp 0.4s ease' }}>
-          <div>
-            <p className="text-white/70 font-semibold text-sm">Platform Net Profit</p>
+        <div
+          className={`rounded-2xl p-6 flex items-center justify-between relative overflow-hidden
+          bg-gradient-to-r ${stats.netProfit >= 0 ? 'from-emerald-600 to-teal-500' : 'from-red-600 to-rose-500'} text-white`}
+          style={{ animation: 'fadeInUp 0.4s ease', boxShadow: stats.netProfit >= 0 ? '0 20px 56px rgba(16,185,129,0.30)' : '0 20px 56px rgba(239,68,68,0.30)' }}
+        >
+          <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-white/10 blur-3xl" />
+          <div className="relative">
+            <p className="text-white/70 font-bold text-xs uppercase tracking-widest">Platform Net Profit</p>
             <p className="text-5xl font-extrabold mt-1">
               {stats.netProfit >= 0 ? '+' : '−'}${Math.abs(stats.netProfit).toLocaleString()}
             </p>
             <p className="text-white/50 text-xs mt-2">Across all businesses and branches</p>
           </div>
-          <DollarSign className="w-24 h-24 text-white/15" />
+          <DollarSign className="w-24 h-24 text-white/10 relative" />
         </div>
       )}
 
@@ -119,13 +122,16 @@ const AdminDashboard = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {statCards.map((card, i) => (
-            <div key={i} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-5 hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
-              style={{ animation: `fadeInUp 0.4s ease ${i * 0.06}s both` }}>
-              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${card.light} shrink-0`}>
-                <card.icon className="w-7 h-7" />
+            <div key={i} className="stat-card"
+              style={{ animation: `fadeInUp 0.4s cubic-bezier(0.16,1,0.3,1) ${i * 0.06}s both` }}>
+              <div
+                className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${card.gradient} flex items-center justify-center shrink-0`}
+                style={{ boxShadow: `0 8px 24px ${card.shadow}` }}
+              >
+                <card.icon className="w-7 h-7 text-white" />
               </div>
               <div>
-                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">{card.label}</p>
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">{card.label}</p>
                 <p className="text-2xl font-extrabold text-gray-900 mt-0.5 anim-count">{card.value ?? 0}</p>
               </div>
             </div>

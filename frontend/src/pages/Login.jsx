@@ -51,29 +51,35 @@ const Login = () => {
             Manage branches, clients, tasks, and finances — all in a single powerful dashboard.
           </p>
 
-          <div className="mt-10 grid grid-cols-2 gap-4">
+          <div className="mt-10 grid grid-cols-2 gap-3">
             {[
-              { label: 'Businesses', value: 'Multi' },
-              { label: 'Branch Tracking', value: '✓' },
-              { label: 'Client CRM', value: '✓' },
-              { label: 'Finance Reports', value: '✓' },
+              { label: 'Businesses', value: 'Multi-Business', icon: '🏢' },
+              { label: 'Branch Tracking', value: 'Real-time', icon: '📍' },
+              { label: 'Client CRM', value: 'Built-in', icon: '👥' },
+              { label: 'Finance Reports', value: 'Excel Export', icon: '📊' },
             ].map((f, i) => (
-              <div key={i} className="bg-white/5 border border-white/10 rounded-xl px-4 py-3">
+              <div key={i} className="bg-white/[0.06] border border-white/[0.12] rounded-xl px-4 py-3.5 hover:bg-white/[0.10] transition-colors cursor-default"
+                style={{ animation: `fadeInUp 0.5s cubic-bezier(0.16,1,0.3,1) ${0.3 + i * 0.08}s both` }}
+              >
+                <p className="text-lg mb-1">{f.icon}</p>
                 <p className="text-blue-300 text-xs font-medium">{f.label}</p>
-                <p className="text-white font-bold mt-0.5">{f.value}</p>
+                <p className="text-white font-bold mt-0.5 text-sm">{f.value}</p>
               </div>
             ))}
           </div>
         </div>
 
-        <p className="text-blue-400 text-sm relative">
-          © 2025 BMS Pro. All rights reserved.
-        </p>
+        <div className="flex items-center gap-4">
+          <div className="text-sm">
+            <p className="text-blue-400/80 font-medium">© 2025 BMS Pro</p>
+            <p className="text-blue-500/50 text-xs">Enterprise Business Management</p>
+          </div>
+        </div>
       </div>
 
       {/* Right login form */}
       <div className="flex-1 flex items-center justify-center p-8 bg-gray-50">
-        <div className="w-full max-w-md space-y-8" style={{ animation: 'fadeInUp 0.4s ease both' }}>
+        <div className="w-full max-w-md space-y-7" style={{ animation: 'fadeInUp 0.5s cubic-bezier(0.16,1,0.3,1) both' }}>
           {/* Mobile logo */}
           <div className="lg:hidden flex items-center gap-3 mb-2">
             <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold">B</div>

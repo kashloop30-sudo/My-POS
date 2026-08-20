@@ -129,31 +129,39 @@ const Reports = () => {
         <SkeletonCard count={3} />
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-4 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
-              <TrendingUp className="w-6 h-6" />
+          <div className="stat-card" style={{ animation: 'fadeInUp 0.4s cubic-bezier(0.16,1,0.3,1) 0s both' }}>
+            <div className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0"
+              style={{ background: 'linear-gradient(135deg,#34d399,#10b981)', boxShadow: '0 6px 20px rgba(16,185,129,0.35)' }}>
+              <TrendingUp className="w-6 h-6 text-white" />
             </div>
             <div>
-              <p className="text-xs text-gray-400 font-semibold uppercase tracking-wide">Total Income</p>
-              <p className="text-xl font-extrabold text-gray-900 mt-0.5">{selectedBusiness.currency} {totalIncome.toLocaleString()}</p>
+              <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">Total Income</p>
+              <p className="text-xl font-extrabold text-gray-900 mt-0.5 anim-count">{selectedBusiness.currency} {totalIncome.toLocaleString()}</p>
             </div>
           </div>
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-4 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 rounded-2xl bg-red-50 text-red-500 flex items-center justify-center shrink-0">
-              <TrendingDown className="w-6 h-6" />
+          <div className="stat-card" style={{ animation: 'fadeInUp 0.4s cubic-bezier(0.16,1,0.3,1) 0.07s both' }}>
+            <div className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0"
+              style={{ background: 'linear-gradient(135deg,#fb7185,#ef4444)', boxShadow: '0 6px 20px rgba(239,68,68,0.32)' }}>
+              <TrendingDown className="w-6 h-6 text-white" />
             </div>
             <div>
-              <p className="text-xs text-gray-400 font-semibold uppercase tracking-wide">Total Expense</p>
-              <p className="text-xl font-extrabold text-gray-900 mt-0.5">{selectedBusiness.currency} {totalExpense.toLocaleString()}</p>
+              <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">Total Expense</p>
+              <p className="text-xl font-extrabold text-gray-900 mt-0.5 anim-count">{selectedBusiness.currency} {totalExpense.toLocaleString()}</p>
             </div>
           </div>
-          <div className={`rounded-2xl p-5 flex items-center gap-4 shadow-lg text-white ${netProfit >= 0 ? 'bg-gradient-to-br from-emerald-500 to-green-600' : 'bg-gradient-to-br from-red-500 to-rose-600'}`}>
+          <div
+            className={`rounded-2xl p-5 flex items-center gap-4 text-white relative overflow-hidden ${
+              netProfit >= 0 ? 'bg-gradient-to-br from-emerald-500 via-teal-500 to-green-600' : 'bg-gradient-to-br from-red-500 via-rose-500 to-red-600'
+            }`}
+            style={{ boxShadow: netProfit >= 0 ? '0 10px 36px rgba(16,185,129,0.38)' : '0 10px 36px rgba(239,68,68,0.35)', animation: 'fadeInUp 0.4s cubic-bezier(0.16,1,0.3,1) 0.14s both' }}
+          >
+            <div className="absolute -top-4 -right-4 w-20 h-20 bg-white/10 rounded-full blur-xl" />
             <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center shrink-0">
               <DollarSign className="w-6 h-6 text-white" />
             </div>
             <div>
-              <p className="text-xs text-white/80 font-semibold uppercase tracking-wide">Net Profit</p>
-              <p className="text-xl font-extrabold mt-0.5">{netProfit >= 0 ? '+' : '−'}{selectedBusiness.currency} {Math.abs(netProfit).toLocaleString()}</p>
+              <p className="text-xs text-white/75 font-bold uppercase tracking-widest">Net Profit</p>
+              <p className="text-xl font-extrabold mt-0.5 anim-count">{netProfit >= 0 ? '+' : '−'}{selectedBusiness.currency} {Math.abs(netProfit).toLocaleString()}</p>
             </div>
           </div>
         </div>

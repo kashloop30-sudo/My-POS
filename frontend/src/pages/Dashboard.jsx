@@ -74,10 +74,26 @@ const Dashboard = () => {
   const greeting = hour < 12 ? 'morning' : hour < 17 ? 'afternoon' : 'evening';
 
   const cards = summary ? [
-    { label: 'Total Income',  value: `${currency} ${summary.totalIncome.toLocaleString()}`,  icon: TrendingUp,   bg: 'bg-emerald-50', iconColor: 'text-emerald-600', trend: '+12%', up: true },
-    { label: 'Total Expense', value: `${currency} ${summary.totalExpense.toLocaleString()}`, icon: TrendingDown, bg: 'bg-red-50',     iconColor: 'text-red-500',    trend: 'All branches', up: null },
-    { label: 'Total Clients', value: summary.totalClients,                                   icon: Users,        bg: 'bg-blue-50',    iconColor: 'text-blue-600',   trend: 'Customers', up: null },
-    { label: 'Active Tasks',  value: summary.activeTasks,                                    icon: CheckSquare,  bg: 'bg-amber-50',   iconColor: 'text-amber-500',  trend: 'Pending', up: null },
+    {
+      label: 'Total Income',  value: `${currency} ${summary.totalIncome.toLocaleString()}`,
+      icon: TrendingUp,   gradient: 'from-emerald-400 to-teal-500',   shadow: 'rgba(16,185,129,0.35)',
+      trend: '+vs expenses', up: true
+    },
+    {
+      label: 'Total Expense', value: `${currency} ${summary.totalExpense.toLocaleString()}`,
+      icon: TrendingDown, gradient: 'from-rose-400 to-red-500',        shadow: 'rgba(239,68,68,0.30)',
+      trend: 'All branches', up: null
+    },
+    {
+      label: 'Total Clients', value: summary.totalClients,
+      icon: Users,        gradient: 'from-blue-400 to-indigo-500',     shadow: 'rgba(99,102,241,0.30)',
+      trend: 'Customers', up: null
+    },
+    {
+      label: 'Active Tasks',  value: summary.activeTasks,
+      icon: CheckSquare,  gradient: 'from-amber-400 to-orange-500',    shadow: 'rgba(245,158,11,0.30)',
+      trend: 'Pending', up: null
+    },
   ] : [];
 
   return (
@@ -101,14 +117,17 @@ const Dashboard = () => {
           {cards.map((card, i) => (
             <div
               key={i}
-              className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-4 hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
-              style={{ animation: `fadeInUp 0.4s ease ${i * 0.08}s both` }}
+              className="stat-card"
+              style={{ animation: `fadeInUp 0.4s cubic-bezier(0.16,1,0.3,1) ${i * 0.07}s both` }}
             >
-              <div className={`w-12 h-12 rounded-2xl ${card.bg} flex items-center justify-center shrink-0`}>
-                <card.icon className={`w-6 h-6 ${card.iconColor}`} />
+              <div
+                className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${card.gradient} flex items-center justify-center shrink-0`}
+                style={{ boxShadow: `0 6px 20px ${card.shadow}` }}
+              >
+                <card.icon className="w-5 h-5 text-white" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide truncate">{card.label}</p>
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest truncate">{card.label}</p>
                 <p className="text-xl font-extrabold text-gray-900 mt-0.5 truncate anim-count">{card.value}</p>
                 <div className="flex items-center gap-1 mt-0.5">
                   {card.up !== null && (
@@ -125,11 +144,11 @@ const Dashboard = () => {
       {/* Charts */}
       {!loading && summary && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Bar chart */}
-          <div className="lg:col-span-2 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+          {/* Area chart */}
+          <div className="lg:col-span-2 bg-white p-6 rounded-2xl border border-gray-100/80 shadow-sm">
             <div className="flex items-center justify-between mb-5">
               <h3 className="text-base font-bold text-gray-900">Income vs Expense</h3>
-              <span className="text-xs text-gray-400 bg-gray-100 px-2.5 py-1 rounded-full font-medium">Monthly</span>
+              <span className="text-xs font-bold text-indigo-700 bg-indigo-50 border border-indigo-100 px-3 py-1 rounded-full">Monthly</span>
             </div>
             <div className="h-72 w-full">
               {chartData.length > 0 ? (
@@ -166,20 +185,24 @@ const Dashboard = () => {
           </div>
 
           {/* Net Profit card */}
-          <div className={`rounded-2xl p-6 flex flex-col justify-center items-center text-center shadow-lg
-            ${summary.netProfit >= 0
-              ? 'bg-gradient-to-br from-emerald-500 to-green-600'
-              : 'bg-gradient-to-br from-red-500 to-rose-600'
+          <div
+            className={`rounded-2xl p-6 flex flex-col justify-center items-center text-center relative overflow-hidden
+            ${ summary.netProfit >= 0
+              ? 'bg-gradient-to-br from-emerald-500 via-teal-500 to-green-600'
+              : 'bg-gradient-to-br from-red-500 via-rose-500 to-red-600'
             } text-white`}
+            style={{ boxShadow: summary.netProfit >= 0 ? '0 16px 48px rgba(16,185,129,0.35)' : '0 16px 48px rgba(239,68,68,0.35)' }}
           >
-            <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mb-4">
+            {/* Background glow orb */}
+            <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-white/10 blur-2xl" />
+            <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mb-4 anim-float">
               <DollarSign className="w-8 h-8 text-white" />
             </div>
-            <p className="text-green-100 font-semibold text-sm mb-1">Net Profit</p>
+            <p className="text-white/70 font-bold text-xs uppercase tracking-widest mb-1">Net Profit</p>
             <p className="text-4xl font-extrabold">
               {summary.netProfit >= 0 ? '+' : '−'}{currency} {Math.abs(summary.netProfit).toLocaleString()}
             </p>
-            <p className="text-white/60 text-xs mt-3">Total revenue minus expenses across all branches</p>
+            <p className="text-white/50 text-xs mt-3 leading-relaxed">Total revenue minus expenses across all branches</p>
           </div>
         </div>
       )}
