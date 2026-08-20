@@ -23,9 +23,9 @@ export const ToastProvider = ({ children }) => {
   };
 
   const icons = {
-    success: <CheckCircle2 className="w-5 h-5 shrink-0" />,
-    error:   <XCircle      className="w-5 h-5 shrink-0" />,
-    info:    <Info         className="w-5 h-5 shrink-0" />,
+    success: <CheckCircle2 className="w-5 h-5 shrink-0 toast-icon" />,
+    error:   <XCircle      className="w-5 h-5 shrink-0 toast-icon" />,
+    info:    <Info         className="w-5 h-5 shrink-0 toast-icon" />,
   };
 
   return (

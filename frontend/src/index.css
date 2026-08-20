@@ -23,10 +23,15 @@
     color: #111827;
   }
 
-  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
   ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 99px; }
-  ::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+  ::-webkit-scrollbar-thumb { 
+    background: rgba(156, 163, 175, 0.4); 
+    border-radius: 99px; 
+    border: 2px solid transparent; 
+    background-clip: padding-box; 
+  }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(156, 163, 175, 0.7); border: 2px solid transparent; background-clip: padding-box; }
   ::selection { background: #bfdbfe; color: #1e40af; }
 }
 
@@ -36,7 +41,15 @@
   .card-hover { @apply transition-all duration-200 hover:shadow-xl hover:-translate-y-1; }
   .stat-card {
     @apply bg-white rounded-2xl border border-gray-100 shadow-sm p-5
-           flex items-center gap-4 hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5;
+           flex items-center gap-4 transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)]
+           hover:-translate-y-1 hover:border-blue-100 relative overflow-hidden;
+  }
+  .stat-card::after {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-tr from-blue-500/0 via-white/0 to-blue-500/5 opacity-0 transition-opacity duration-300 pointer-events-none;
+  }
+  .stat-card:hover::after {
+    @apply opacity-100;
   }
 
   .input-base {
@@ -88,16 +101,16 @@
   }
 
   .toast-wrap {
-    @apply fixed top-4 right-4 z-[9999] flex flex-col gap-2 pointer-events-none;
+    @apply fixed top-6 left-1/2 -translate-x-1/2 z-[9999] flex flex-col gap-3 pointer-events-none items-center;
   }
   .toast {
-    @apply flex items-center gap-3 px-4 py-3 rounded-xl shadow-xl text-sm font-medium
-           pointer-events-auto min-w-[260px] max-w-sm;
-    animation: slideInRight 0.3s cubic-bezier(.34,1.56,.64,1);
+    @apply flex items-center gap-3 px-4 py-3 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] text-sm font-semibold
+           pointer-events-auto min-w-[260px] max-w-sm backdrop-blur-xl border border-white/20 text-gray-800 bg-white/80;
+    animation: springToast 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
   }
-  .toast-success { @apply bg-emerald-600 text-white; }
-  .toast-error   { @apply bg-red-600 text-white; }
-  .toast-info    { @apply bg-blue-600 text-white; }
+  .toast-success .toast-icon { @apply text-emerald-500; }
+  .toast-error .toast-icon   { @apply text-red-500; }
+  .toast-info .toast-icon    { @apply text-blue-500; }
 
   .skeleton {
     @apply rounded-lg;
@@ -147,6 +160,10 @@
   0%   { opacity: 0; transform: scale(0.8) translateY(20px); }
   100% { opacity: 1; transform: scale(1) translateY(0); }
 }
+@keyframes springToast {
+  0%   { opacity: 0; transform: scale(0.8) translateY(-40px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
 @keyframes slideInRight {
   from { opacity: 0; transform: translateX(60px); }
   to   { opacity: 1; transform: translateX(0); }
@@ -169,6 +186,12 @@
 @keyframes countUp {
   from { transform: translateY(8px); opacity: 0; }
   to   { transform: translateY(0);   opacity: 1; }
+}
+@keyframes drift {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  33%  { transform: translate(30px, -50px) scale(1.1); }
+  66%  { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
 }
 
 /* ─── Helpers ──────────────────────────────────────────────── */

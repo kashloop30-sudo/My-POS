@@ -33,8 +33,8 @@ const Login = () => {
       {/* Left brand panel */}
       <div className="hidden lg:flex flex-col justify-between w-1/2 bg-gradient-to-br from-gray-900 via-blue-950 to-indigo-950 p-12 relative overflow-hidden">
         {/* Decorative blobs */}
-        <div className="absolute -top-32 -left-32 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl" />
-        <div className="absolute -bottom-32 -right-16 w-80 h-80 bg-indigo-600/20 rounded-full blur-3xl" />
+        <div className="absolute -top-32 -left-32 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl mix-blend-screen" style={{ animation: 'drift 20s ease-in-out infinite alternate' }} />
+        <div className="absolute -bottom-32 -right-16 w-80 h-80 bg-indigo-600/20 rounded-full blur-3xl mix-blend-screen" style={{ animation: 'drift 25s ease-in-out infinite alternate-reverse' }} />
 
         <div className="relative">
           <div className="flex items-center gap-3 mb-12">
